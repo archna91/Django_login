@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -23,4 +25,17 @@ urlpatterns = [
     path('login/',views.loginPage,name='login'),
     path('logout/',views.logoutUser,name='logout'),
     path('home/',views.home,name='home'),
+
+    path('password_change/',auth_views.PasswordChangeView.as_view(template_name='registration/change_password.html',success_url='/password_change_done')),
+    # path('password_change_done/',auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html')),
+    path('password_reset/',auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html',email_template_name='registration/password_reset_email.html',subject_template_name='registration/password_reset_subject.txt',success_url='/password_reset_done/',from_email='iit1.archna@gmail.com'), name='password_reset1'),
+
+    path('password_reset_done/',auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html')),
+
+    # path('password_reset_confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html',success_url='/password_reset_complete/')),
+
+    path('password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html')),
+
+
+
 ]

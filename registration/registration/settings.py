@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'new_registration',
+
 ]
 
 MIDDLEWARE = [
@@ -52,10 +53,19 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'registration.urls'
 
+LOGIN_EXEMPT_URLS = {
+  r'^account/logout/$',
+  r'^account/register/$',
+  r'^account/password-reset/$',
+  r'^account/password-reset/done/$',
+  r'^account/password-reset/confirm/',
+  r'^account/password-reset/complete/$',
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +79,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'registration.wsgi.application'
+
+
 
 
 # Database
@@ -127,3 +139,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR ,'static' )
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'iit1.archna@gmail.com'
+EMAIL_HOST_PASSWORD = 'monuji123'
+
+LOGIN_URL = '/login/'
